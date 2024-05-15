@@ -12,7 +12,8 @@ class PastaController extends Controller
      */
     public function index()
     {
-        //
+        //dd(Pasta::all());
+        return view('pastas.index', ['pastas' => Pasta::orderByDesc('id')->paginate(8)]);
     }
 
     /**
