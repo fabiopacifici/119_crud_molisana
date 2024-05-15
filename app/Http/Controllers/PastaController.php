@@ -37,7 +37,7 @@ class PastaController extends Controller
      */
     public function show(Pasta $pasta)
     {
-        //
+        return view('pastas.show', compact('pasta'));
     }
 
     /**
