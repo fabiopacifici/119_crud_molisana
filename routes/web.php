@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\PastaController;
-use App\Models\Pasta;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PastaController::class, 'index'])->name('home');
 
 Route::resource('/pastas', PastaController::class);
+Route::resource('/posts', PostController::class);
