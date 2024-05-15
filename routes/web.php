@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PastaController;
+use App\Models\Pasta;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PastaController::class, 'index'])->name('home');
+
+Route::resource('/pastas', PastaController::class);
