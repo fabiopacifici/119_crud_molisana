@@ -21,7 +21,7 @@ class PastaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pastas.create');
     }
 
     /**
@@ -29,7 +29,23 @@ class PastaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $data = $request->all();
+        // validate the user inputs
+
+        // create the resource
+        // option 1 (extended operations)
+        $pasta = new Pasta();
+        $pasta->title = $data['title'];
+        $pasta->src = $data['src'];
+        $pasta->weight = $data['weight'];
+        $pasta->type = $data['type'];
+        $pasta->cooking_time = $data['cooking_time'];
+        $pasta->description = $data['description'];
+        $pasta->save();
+
+        // pattern POST->redirect->GET
+        return to_route('pastas.index');
     }
 
     /**
