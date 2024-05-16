@@ -35,14 +35,16 @@ class PastaController extends Controller
 
         // create the resource
         // option 1 (extended operations)
-        $pasta = new Pasta();
+        /*  $pasta = new Pasta();
         $pasta->title = $data['title'];
         $pasta->src = $data['src'];
         $pasta->weight = $data['weight'];
         $pasta->type = $data['type'];
         $pasta->cooking_time = $data['cooking_time'];
         $pasta->description = $data['description'];
-        $pasta->save();
+        $pasta->save(); */
+
+        Pasta::create($data);
 
         // pattern POST->redirect->GET
         return to_route('pastas.index');
@@ -61,7 +63,7 @@ class PastaController extends Controller
      */
     public function edit(Pasta $pasta)
     {
-        //
+        return view('pastas.edit', compact('pasta'));
     }
 
     /**
@@ -69,7 +71,10 @@ class PastaController extends Controller
      */
     public function update(Request $request, Pasta $pasta)
     {
-        //
+        //dd($request->all());
+        $pasta->update($request->all());
+
+        return to_route('pastas.show', $pasta);
     }
 
     /**
@@ -77,6 +82,11 @@ class PastaController extends Controller
      */
     public function destroy(Pasta $pasta)
     {
-        //
+
+        //dd($id);
+        //$pasta = Pasta::find($id);
+        $pasta->delete();
+
+        return to_route('pastas.index');
     }
 }
