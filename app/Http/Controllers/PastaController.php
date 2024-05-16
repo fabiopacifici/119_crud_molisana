@@ -30,9 +30,19 @@ class PastaController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $data = $request->all();
+        //$data = $request->all();
         // validate the user inputs
 
+        $val_data = $request->validate([
+            'title' => 'required|min:3|max:200',
+            'src' => 'required|max:255',
+            'weight' => 'nullable|max:10',
+            'type' => 'nullable|max:15',
+            'cooking_time' => 'nullable|max:15',
+            'description' => 'nullable|max:500'
+        ]);
+
+        //dd($val_data);
         // create the resource
         // option 1 (extended operations)
         /*  $pasta = new Pasta();
@@ -44,7 +54,7 @@ class PastaController extends Controller
         $pasta->description = $data['description'];
         $pasta->save(); */
 
-        Pasta::create($data);
+        Pasta::create($val_data);
 
         // pattern POST->redirect->GET
         return to_route('pastas.index');
@@ -72,7 +82,19 @@ class PastaController extends Controller
     public function update(Request $request, Pasta $pasta)
     {
         //dd($request->all());
-        $pasta->update($request->all());
+
+        // validate the data
+        $val_data = $request->validate([
+            'title' => 'required|min:3|max:200',
+            'src' => 'required|max:255',
+            'weight' => 'nullable|max:10',
+            'type' => 'nullable|max:15',
+            'cooking_time' => 'nullable|max:15',
+            'description' => 'nullable|max:500'
+        ]);
+
+        dd($val_data);
+        $pasta->update($val_data);
 
         return to_route('pastas.show', $pasta);
     }
