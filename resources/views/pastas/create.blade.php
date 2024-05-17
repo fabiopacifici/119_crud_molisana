@@ -15,7 +15,7 @@
 
         <div class="mb-3">
             <label for="title" class="form-label">Name </label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelper" placeholder="Rigatoni" value="{{old('title')}}" required />
+            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelper" placeholder="Rigatoni" value="{{old('title')}}" />
             <small id="titleHelper" class="form-text text-muted">Type a name for the current pasta</small>
 
             @error('title')

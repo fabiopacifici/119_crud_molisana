@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePastaRequest;
+use App\Http\Requests\UpdatePastaRequest;
 use App\Models\Pasta;
 use Illuminate\Http\Request;
 
@@ -27,32 +29,13 @@ class PastaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePastaRequest $request)
     {
         //dd($request->all());
-        //$data = $request->all();
+
         // validate the user inputs
 
-        $val_data = $request->validate([
-            'title' => 'required|min:3|max:200',
-            'src' => 'required|max:255',
-            'weight' => 'nullable|max:10',
-            'type' => 'nullable|max:15',
-            'cooking_time' => 'nullable|max:15',
-            'description' => 'nullable|max:500'
-        ]);
-
-        //dd($val_data);
-        // create the resource
-        // option 1 (extended operations)
-        /*  $pasta = new Pasta();
-        $pasta->title = $data['title'];
-        $pasta->src = $data['src'];
-        $pasta->weight = $data['weight'];
-        $pasta->type = $data['type'];
-        $pasta->cooking_time = $data['cooking_time'];
-        $pasta->description = $data['description'];
-        $pasta->save(); */
+        $val_data = $request->validated();
 
         Pasta::create($val_data);
 
@@ -79,21 +62,14 @@ class PastaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pasta $pasta)
+    public function update(UpdatePastaRequest $request, Pasta $pasta)
     {
         //dd($request->all());
 
         // validate the data
-        $val_data = $request->validate([
-            'title' => 'required|min:3|max:200',
-            'src' => 'required|max:255',
-            'weight' => 'nullable|max:10',
-            'type' => 'nullable|max:15',
-            'cooking_time' => 'nullable|max:15',
-            'description' => 'nullable|max:500'
-        ]);
+        $val_data = $request->validated();
 
-        dd($val_data);
+        //dd($val_data);
         $pasta->update($val_data);
 
         return to_route('pastas.show', $pasta);
@@ -109,6 +85,6 @@ class PastaController extends Controller
         //$pasta = Pasta::find($id);
         $pasta->delete();
 
-        return to_route('pastas.index');
+        return redirect()->back();
     }
 }
